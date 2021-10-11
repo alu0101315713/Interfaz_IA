@@ -1,0 +1,16 @@
+############### DUDAS #######################
+
+- ¿Se debe ir borrando la trayectoria a medida que avanza el taxi?
+
+
+
+############### PENDIENTES ##################
+
+- Comprobar que las dimensiones pasadas al constructor de World no son negativas.
+- La función CheckIfInWorld podría ser inútil
+- Comprobar que la opción pasada al elegir si añadir un obstáculo más o no es adecuada y no cuelga el programa.
+- Comprobar que la celda en la que se va a escribir una dirección de la trayectoria no tiene un obstáculo.
+- Añadir el código de la función CheckDirection.
+- Las dos funciones de elegir una opción son iguales. Borrar una.
+
+
