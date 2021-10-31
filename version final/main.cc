@@ -6,8 +6,8 @@ void Error() {
 
 int main() {
     Point start, finish;
-    int rows, cols, row, col, mode, option, number, heuristic, speed, election;
-    char ack;
+    int rows, cols, row, col, mode, option, number, heuristic, speed, election, numberofobjects;
+    char ack, character;
     bool running, done;
     float percent;
 
@@ -87,13 +87,14 @@ int main() {
             std::cin >> ack;
             system("clear"); 
         } else if (option == 2) {
+            world.ClearPath();
             do {
                 std::cout << "----> Ha seleccionado la opción de modificar el mundo. " << std::endl;
                 std::cout << "----> ¿Qué desea hacer? " << std::endl;
                 std::cout << "----> 1. Limpiar el mundo. " << std::endl;
                 std::cout << "----> 2. Cambiar obstáculos. " << std::endl;
                 std::cout << "----> 3. Cambiar posiciones de salida y meta. " << std::endl;
-                std::cout << "----> 4. Volver al menú. " << std::endl;
+                std::cout << "----> 4. Volver al menú principal. " << std::endl;
                 std::cout << "----> Introduzca su opción: ";
                 std::cin >> election;
                 system("clear");
@@ -115,7 +116,7 @@ int main() {
                         std::cout << "----> 2. Introducir una cantidad determinada de obstáculos aleatoriamente. " << std::endl;
                         std::cout << "----> 3. Introducir un porcentaje determinado de obstáculos aleatoriamente. " << std::endl;
                         std::cout << "----> 4. Introducir obstáculos mediante un fichero. " << std::endl;
-                        std::cout << "----> 5. Volver al menú." << std::endl;
+                        std::cout << "----> 5. Volver al menú de edición de mapa." << std::endl;
                         std::cout << "----> Introduzca su opción: ";
                         std::cin >> election;
                         system("clear");
@@ -207,33 +208,48 @@ int main() {
                             std::cin >> ack;
                             system("clear");
                         } else if (election == 4) {
+                            numberofobjects = 0;
                             world.ClearObjects();
                             done = false;
                             std::cout << "----> Ha elegido el modo fichero. " << std::endl;
                             std::string filename;
-                            std::cout << "----> Introduzca el fichero de entrada: " << std::endl;
+                            std::cout << "----> Introduzca el fichero de entrada: ";
                             std::cin >> filename;
                             std::ifstream file(filename);
                             while (!done) {
                                 if (file) {
                                     while (!file.eof()) {
-                                        file >> row >> col;
-                                        if ((!world.isEmpty(row, col)) || (world.isStart(row, col)) || (world.isEnd(row, col))) {
-                                            std::cout << "----> Lugar ocupado. " << std::endl;
-                                        } else {
-                                            world.Change(row, col, WHITE);
+                                        file.get(character);
+                                        if ((character >= 48) && (character <= 57)) {
+                                            file.putback(character);
+                                            file >> row;
+                                            file.get(character);
+                                            if (character == ' ') {
+                                                file.get(character);
+                                                if ((character >= 48) && (character <= 57)) {
+                                                    file.putback(character);
+                                                    file >> col;
+                                                    file.get(character);
+                                                    if ((character == '\n') || (file.eof())) {
+                                                        if ((world.isEmpty(row, col)) && (!world.isStart(row, col)) && (!world.isEnd(row, col))) {
+                                                            world.Change(row, col, WHITE);
+                                                            ++numberofobjects;
+                                                        }
+                                                    }
+                                                }
+                                            } 
+                                            while ((character != '\n') && !(file.eof())) {
+                                                file.get(character);
+                                            }   
                                         }
                                     }
                                     std::cout << "----> Fichero leido de forma exitosa." << std::endl;
+                                    std::cout << "----> Se han añadido " << numberofobjects << " obstáculos. " << std::endl;
                                     done = true;
                                 } else {
                                     std::cout << "----> No se ha podido abrir el fichero." << std::endl;
                                 }
                             }
-                            world.Visualizer();
-                            std::cout << "----> Pulse 1 y enter para continuar: " << std::endl;
-                            std::cin >> ack;
-                            system("clear");
                         } else if (election == 5) {
                             std::cout << "----> Volviendo al menú de edición del mundo. " << std::endl;
                             std::cout << "----> Pulse 1 y enter para continuar: ";
@@ -255,7 +271,7 @@ int main() {
                         std::cout << "----> ¿Qué desea hacer? " << std::endl;
                         std::cout << "----> 1. Cambiar la salida. " << std::endl;
                         std::cout << "----> 2. Cambiar la meta. " << std::endl;
-                        std::cout << "----> 3. Volver al menú. " << std::endl;
+                        std::cout << "----> 3. Volver al menú de edición de mapa. " << std::endl;
                         std::cout << "----> Introduzca su opción: ";
                         std::cin >> election;
                         system("clear");
@@ -320,7 +336,7 @@ int main() {
                 std::cout << "----> ¿Qué desea hacer? " << std::endl;
                 std::cout << "----> 1. Iniciar el algoritmo. " << std::endl;
                 std::cout << "----> 2. Limpiar el camino. " << std::endl;
-                std::cout << "----> 3. Volver al menú. " << std::endl;
+                std::cout << "----> 3. Volver al menú principal. " << std::endl;
                 std::cout << "----> Introduzca su opción: ";
                 std::cin >> election;
                 system("clear");
@@ -388,7 +404,7 @@ int main() {
                 std::cout << "----> Ha seleccionado la opción de cerrar el programa. " << std::endl;
                 std::cout << "----> ¿Seguro que desea cerrar el programa?" << std::endl;
                 std::cout << "----> 1. Cerrar el programa. " << std::endl;
-                std::cout << "----> 2. Volver al menú. " << std::endl;
+                std::cout << "----> 2. Volver al menú principal. " << std::endl;
                 std::cout << "----> Introduzca su opción: ";
                 std::cin >> election;
                 system("clear");
