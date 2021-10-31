@@ -21,7 +21,7 @@
 #include<chrono>
 #include<thread>
 
-//Constantes ▄ ♥ a
+//Constantes
 
 //Colores que aparecerán en el mapa (Las adicionales no se usan actualmente).
 const std::string BLACK = "\033[30m██\033[0m";    //Adicional.
