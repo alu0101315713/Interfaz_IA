@@ -20,7 +20,7 @@ int main() {
 
     std::cout << "----> Cree el mapa: " << std::endl;
     std::cout << "----> Introduzca el número de filas del mapa: ";
-    std::cin >> rows; 
+    std::cin >> rows;
     std::cout << "----> Introduzca el número de columnas del mapa: ";
     std::cin >> cols;
     World world(rows, cols);
@@ -53,7 +53,7 @@ int main() {
     world.Visualizer();
     std::cout << "----> Pulse 1 y enter para continuar: ";
     std::cin >> ack;
-    system("clear");    
+    system("clear");
 
     do {
         std::cout << "----> ¿Qué desea hacer? " << std::endl;
@@ -61,11 +61,11 @@ int main() {
         std::cout << "----> 1. Visualizar el mundo. " << std::endl;
         std::cout << "----> 2. Modificar el mundo. " << std::endl;
         std::cout << "----> 3. Comenzar el camino. " << std::endl;
-        std::cout << "----> 4. Cerrar el programa. " << std::endl; 
+        std::cout << "----> 4. Cerrar el programa. " << std::endl;
         std::cout << "----> Introduzca su opción: ";
         std::cin >> option;
         system("clear");
-        
+
         if (option == 0) {
             std::cout << "----> Ha seleccionado la opción de leer información sobre la aplicación. " << std::endl;
             std::ifstream readme("README.txt");
@@ -78,14 +78,14 @@ int main() {
             std::cout << "----> Volviendo al menú. " << std::endl;
             std::cout << "----> Pulse 1 y enter para continuar: ";
             std::cin >> ack;
-            system("clear"); 
+            system("clear");
         } else if (option == 1) {
             std::cout << "----> Ha seleccionado la opción de visualizar el mundo. " << std::endl;
             world.Visualizer();
             std::cout << "----> Volviendo al menú. " << std::endl;
             std::cout << "----> Pulse 1 y enter para continuar: ";
             std::cin >> ack;
-            system("clear"); 
+            system("clear");
         } else if (option == 2) {
             world.ClearPath();
             do {
@@ -238,10 +238,10 @@ int main() {
                                                         }
                                                     }
                                                 }
-                                            } 
+                                            }
                                             while ((character != '\n') && !(file.eof())) {
                                                 file.get(character);
-                                            }   
+                                            }
                                         }
                                     }
                                     std::cout << "----> Fichero leido de forma exitosa." << std::endl;
@@ -303,7 +303,7 @@ int main() {
                             world.Visualizer();
                             std::cout << "----> Pulse 1 y enter para continuar: ";
                             std::cin >> ack;
-                            system("clear");    
+                            system("clear");
                         } else if (election == 3) {
                             std::cout << "----> Volviendo al menú de edición del mundo. " << std::endl;
                             std::cout << "----> Pulse 1 y enter para continuar: ";
@@ -318,7 +318,7 @@ int main() {
                         }
                     } while (election != 3);
                 } else if (election == 4) {
-                    std::cout << "----> Volviendo al menú. " << std::endl; 
+                    std::cout << "----> Volviendo al menú. " << std::endl;
                     std::cout << "----> Pulse 1 y enter para continuar: ";
                     std::cin >> ack;
                     system("clear");
@@ -327,7 +327,7 @@ int main() {
                     std::cout << "----> Volviendo al menú de edición de mapa. " << std::endl;
                     std::cout << "----> Pulse 1 y enter para continuar: ";
                     std::cin >> ack;
-                    system("clear"); 
+                    system("clear");
                 }
             } while (election != 4);
             option = 2;
@@ -357,7 +357,7 @@ int main() {
                     do {
                         std::cout << "----> ¿Qué tipo de algoritmo prefiere? " << std::endl;
                         std::cout << "----> 1. Algoritmo A*." << std::endl;
-                        std::cout << "----> 2. Algoritmo de Dijkstra. " << std::endl; 
+                        std::cout << "----> 2. Algoritmo de Dijkstra. " << std::endl;
                         std::cout << "----> Introduzca su opción: ";
                         std::cin >> algorithm;
                         if ((algorithm != 1) && (algorithm != 2)) {
@@ -370,7 +370,7 @@ int main() {
                             std::cout << "----> ¿Qué tipo de heurística prefiere? " << std::endl;
                             std::cout << "----> 1. Manhattan." << std::endl;
                             std::cout << "----> 2. Euclídea. " << std::endl;
-                            std::cout << "----> 3. Diagonal. " << std::endl; 
+                            std::cout << "----> 3. Diagonal. " << std::endl;
                             std::cout << "----> Introduzca su opción: ";
                             std::cin >> heuristic;
                             if ((heuristic != 1) && (heuristic != 2) && (heuristic != 3)) {
@@ -380,7 +380,7 @@ int main() {
                         } while ((heuristic != 1) && (heuristic != 2) && (heuristic != 3));
                     }
                     do {
-                        std::cout << "----> ¿Qué velocidad de ejecución quiere? (Entre 1-60 fps)" << std::endl; 
+                        std::cout << "----> ¿Qué velocidad de ejecución quiere? (Entre 1-60 fps)" << std::endl;
                         std::cout << "----> Introduzca su opción: ";
                         std::cin >> speed;
                         if ((speed < 1) || (speed > 60)) {
@@ -394,14 +394,14 @@ int main() {
                     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
                     std::cout << std::endl << "----> La duración del algoritmo ha sido de: " << duration.count() << " microsegundos." << std::endl << std::endl;
                 } else if (election == 2) {
-                    std::cout << "----> Limpiando el camino. " << std::endl; 
+                    std::cout << "----> Limpiando el camino. " << std::endl;
                     world.ClearPath();
                     world.Visualizer();
                     std::cout << "----> Pulse 1 y enter para continuar: ";
                     std::cin >> ack;
                     system("clear");
                 } else if (election == 3) {
-                    std::cout << "----> Volviendo al menú. " << std::endl; 
+                    std::cout << "----> Volviendo al menú. " << std::endl;
                     std::cout << "----> Pulse 1 y enter para continuar: ";
                     std::cin >> ack;
                     system("clear");
@@ -410,7 +410,7 @@ int main() {
                     std::cout << "----> Volviendo al menú de algoritmo de búsqueda. " << std::endl;
                     std::cout << "----> Pulse 1 y enter para continuar: ";
                     std::cin >> ack;
-                    system("clear"); 
+                    system("clear");
                 }
             } while (election != 3);
         } else if (option = 4) {
@@ -429,7 +429,7 @@ int main() {
                     system("clear");
                     exit(1);
                 } else if (election == 2) {
-                    std::cout << "----> Volviendo al menú. " << std::endl; 
+                    std::cout << "----> Volviendo al menú. " << std::endl;
                     option = 1;
                     std::cout << "----> Pulse 1 y enter para continuar: ";
                     std::cin >> ack;
@@ -447,7 +447,7 @@ int main() {
             std::cout << "----> Volviendo al menú. " << std::endl;
             std::cout << "----> Pulse 1 y enter para continuar: ";
             std::cin >> ack;
-            system("clear"); 
+            system("clear");
         }
     } while (option != 4);
     return 0;
