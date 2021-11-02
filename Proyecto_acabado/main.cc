@@ -6,7 +6,7 @@ void Error() {
 
 int main() {
     Point start, finish;
-    int rows, cols, row, col, mode, option, number, heuristic, speed, election, numberofobjects;
+    int rows, cols, row, col, mode, option, number, heuristic, speed, election, numberofobjects, algorithm;
     char ack, character;
     bool running, done;
     float percent;
@@ -68,7 +68,7 @@ int main() {
         
         if (option == 0) {
             std::cout << "----> Ha seleccionado la opción de leer información sobre la aplicación. " << std::endl;
-            std::ifstream readme("README.md");
+            std::ifstream readme("README.txt");
             if (readme.is_open()) {
                 std::cout << "----> Mostrando información sobre el programa de Taxi Autónomo. " << std::endl;
                 std::cout << readme.rdbuf();
@@ -180,6 +180,7 @@ int main() {
                             std::cin >> ack;
                             system("clear");
                         } else if (election == 3) {
+                            srand(time(NULL));
                             world.ClearObjects();
                             done = false;
                             std::cout << "----> Ha elegido el modo por porcentajes. " << std::endl;
@@ -216,8 +217,8 @@ int main() {
                             std::cout << "----> Introduzca el fichero de entrada: ";
                             std::cin >> filename;
                             std::ifstream file(filename);
-                            while (!done) {
-                                if (file) {
+                            if (file) {
+                                while (!done) {
                                     while (!file.eof()) {
                                         file.get(character);
                                         if ((character >= 48) && (character <= 57)) {
@@ -246,9 +247,9 @@ int main() {
                                     std::cout << "----> Fichero leido de forma exitosa." << std::endl;
                                     std::cout << "----> Se han añadido " << numberofobjects << " obstáculos. " << std::endl;
                                     done = true;
-                                } else {
-                                    std::cout << "----> No se ha podido abrir el fichero." << std::endl;
                                 }
+                            } else {
+                                std::cout << "----> No se ha podido abrir el fichero." << std::endl;
                             }
                         } else if (election == 5) {
                             std::cout << "----> Volviendo al menú de edición del mundo. " << std::endl;
@@ -354,17 +355,30 @@ int main() {
                         system("clear");
                     } while ((option != 1) && (option != 2));
                     do {
-                        std::cout << "----> ¿Qué tipo de heurística prefiere? " << std::endl;
-                        std::cout << "----> 1. Manhattan." << std::endl;
-                        std::cout << "----> 2. Euclídea. " << std::endl;
-                        std::cout << "----> 3. Diagonal. " << std::endl; 
+                        std::cout << "----> ¿Qué tipo de algoritmo prefiere? " << std::endl;
+                        std::cout << "----> 1. Algoritmo A*." << std::endl;
+                        std::cout << "----> 2. Algoritmo de Dijkstra. " << std::endl; 
                         std::cout << "----> Introduzca su opción: ";
-                        std::cin >> heuristic;
-                        if ((heuristic != 1) && (heuristic != 2) && (heuristic != 3)) {
+                        std::cin >> algorithm;
+                        if ((algorithm != 1) && (algorithm != 2)) {
                             Error();
                         }
                         system("clear");
-                    } while ((heuristic != 1) && (heuristic != 2) && (heuristic != 3));
+                    } while ((algorithm != 1) && (algorithm != 2));
+                    if (algorithm == 1) {
+                        do {
+                            std::cout << "----> ¿Qué tipo de heurística prefiere? " << std::endl;
+                            std::cout << "----> 1. Manhattan." << std::endl;
+                            std::cout << "----> 2. Euclídea. " << std::endl;
+                            std::cout << "----> 3. Diagonal. " << std::endl; 
+                            std::cout << "----> Introduzca su opción: ";
+                            std::cin >> heuristic;
+                            if ((heuristic != 1) && (heuristic != 2) && (heuristic != 3)) {
+                                Error();
+                            }
+                            system("clear");
+                        } while ((heuristic != 1) && (heuristic != 2) && (heuristic != 3));
+                    }
                     do {
                         std::cout << "----> ¿Qué velocidad de ejecución quiere? (Entre 1-60 fps)" << std::endl; 
                         std::cout << "----> Introduzca su opción: ";
@@ -375,7 +389,7 @@ int main() {
                         system("clear");
                     } while ((speed < 1) || (speed > 60));
                     auto start = std::chrono::high_resolution_clock::now();
-                    world.AStar(option, heuristic, speed);
+                    world.AStar(option, heuristic, speed, algorithm);
                     auto stop = std::chrono::high_resolution_clock::now();
                     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
                     std::cout << std::endl << "----> La duración del algoritmo ha sido de: " << duration.count() << " microsegundos." << std::endl << std::endl;
@@ -428,7 +442,6 @@ int main() {
                     system("clear");
                 }
             } while ((election < 1) || (election > 2));
-    
         } else {
             std::cout << "----> Ha seleccionado una opción no válida. " << std::endl;
             std::cout << "----> Volviendo al menú. " << std::endl;

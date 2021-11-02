@@ -92,7 +92,7 @@ class World {
         float Euclidean(int row, int col);
 
         //Funciones del algoritmo A*.
-        void AStar(int mode, int heuristic, int speed);
+        void AStar(int mode, int heuristic, int speed, int algorithm);
         void Path(int speed);
 
         //Visualizadores.

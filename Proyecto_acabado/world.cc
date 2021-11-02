@@ -177,7 +177,7 @@ float World::Euclidean(int row, int col) {
 
 //Función que dibuja el camino.
 void World::Path(int speed) {
-    //std::chrono::_V2::system_clock::time_point time;
+    std::chrono::_V2::system_clock::time_point time;
     int timeint = speed;
     float cost = 0;
     std::cout << std::endl << "----> El camino es el siguiente: " << std::endl;
@@ -202,7 +202,7 @@ void World::Path(int speed) {
     Path.push(destination);
     //Empieza a cambiar de color los nodos del camino desde el inicio al final.
     while (!Path.empty()) {
-        //time = std::chrono::system_clock::now();
+        time = std::chrono::system_clock::now();
         std::cout << "----> El tamaño del camino es: " << map_[temporal.row_][temporal.col_].cost_ << std::endl;
         cost = map_[temporal.row_][temporal.col_].cost_;
         temporal.row_ = Path.top().row_;
@@ -219,16 +219,16 @@ void World::Path(int speed) {
                 }
             } 
         }
-        //time += std::chrono::milliseconds(1000 / timeint);
-        //std::this_thread::sleep_until(time);
+        time += std::chrono::milliseconds(1000 / timeint);
+        std::this_thread::sleep_until(time);
         system("clear");
         Visualizer();
     }
-    std::cout << "----> El tamaño del camino es: " << cost << std::endl;
+    std::cout << "----> La longitud del camino es de: " << cost << " unidades." << std::endl;
     return;
 }
 
-void World::AStar(int mode, int heuristic, int speed) {
+void World::AStar(int mode, int heuristic, int speed, int algorithm) {
     //Será verdadero cuando se encuentre la meta.
     bool isDestination = false;
     float cost, distance, function;
@@ -327,13 +327,17 @@ void World::AStar(int mode, int heuristic, int speed) {
                     } else if (i >= 4) {
                         cost = map_[row][col].cost_ + 1.414;
                     }
-                    if (heuristic == 1) {
-                        distance = Manhattan(neighbours[i].first, neighbours[i].second);
-                    } else if (heuristic == 2) {
-                        distance = Euclidean(neighbours[i].first, neighbours[i].second);
-                    } else if (heuristic == 3) {
-                        distance = Diagonal(neighbours[i].first, neighbours[i].second);
-                    } 
+                    if (algorithm == 1) {
+                        if (heuristic == 1) {
+                            distance = Manhattan(neighbours[i].first, neighbours[i].second);
+                        } else if (heuristic == 2) {
+                            distance = Euclidean(neighbours[i].first, neighbours[i].second);
+                        } else if (heuristic == 3) {
+                            distance = Diagonal(neighbours[i].first, neighbours[i].second);
+                        } 
+                    } else if (algorithm == 2) {
+                        distance = 0;
+                    }
                     function = cost + distance;
                     //Añadirlo a la lista abierta si no lo está o actualizar un valor por otro mejor en caso de que lo esté.
                     if ((map_[neighbours[i].first][neighbours[i].second].function_ == FLT_MAX) || (map_[neighbours[i].first][neighbours[i].second].function_ > function)) {
