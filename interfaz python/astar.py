@@ -2,7 +2,7 @@ import pygame
 import math
 from queue import PriorityQueue
 
-WIDTH = 800
+WIDTH = 800   # Anchura de las celdas
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption(" Práctica IA: A* Path Finding algoritmo")
 
@@ -195,7 +195,7 @@ def get_clicked_pos(pos, rows, width):
 
 
 def main(win, width):
-	ROWS = 100
+	ROWS = 100								# Número de filas y columnas
 	grid = make_grid(ROWS, width)  			# Creamos la interfaz 2D
 
 	start = None  							# Trackeamos el start y la posicion
